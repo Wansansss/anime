@@ -7,14 +7,15 @@ import prisma from "@/libs/prisma";
 import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
-const Page = async ({ params: { anime_mal_id } }) => {
-  const collection = await prisma.collection
-  .findFirst({
-    where: { user_email: user?.email, anime_mal_id: anime_mal_id },
-  })
-  .withAccelerateInfo();
-  const anime = await getAnimeResponse(`anime/${ anime_mal_id }`);
+const Page = async ({ params }) => {
+  const { id } = params
+  const anime = await getAnimeResponse(`anime/${ id }`);
   const user = await authUserSession();
+  // const collection = await prisma.collection
+  // .findFirst({
+  //   where: { user_email: user?.email, anime_mal_id: id },
+  // })
+  // .withAccelerateInfo();
  
   return (
     <>
@@ -63,11 +64,11 @@ const Page = async ({ params: { anime_mal_id } }) => {
       </div>
       <div className="p-4">
         <h3 className="font-bold text-2xl mb-2">Komentar Penonton : </h3>
-        <UserComment anime_mal_id={anime_mal_id} />
+        <UserComment anime_mal_id={id} />
 
         {user && (
           <CommentInput
-            anime_mal_id={anime_mal_id}
+            anime_mal_id={id}
             user_email={user?.email}
             username={user?.name}
             anime_title={anime.data.title}
