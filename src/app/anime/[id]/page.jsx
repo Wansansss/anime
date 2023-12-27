@@ -3,7 +3,7 @@ import VideoPlayer from "@/components/Utilities/VideoPlayer";
 import Image from "next/image";
 import CollectionButton from "@/components/ListAnime/CollectionsButton";
 import { authUserSession } from "@/libs/auth-libs";
-import prisma from "@/libs/prisma";
+// import prisma from "@/libs/prisma";
 import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
@@ -11,11 +11,11 @@ const Page = async ({ params }) => {
   const { id } = params
   const anime = await getAnimeResponse(`anime/${ id }`);
   const user = await authUserSession();
-  const collection = await prisma.collection
-  .findFirst({
-    where: { user_email: user?.email, anime_mal_id: id },
-  })
-  .withAccelerateInfo();
+  // const collection = await prisma.collection
+  // .findFirst({
+  //   where: { user_email: user?.email, anime_mal_id: id },
+  // })
+  // .withAccelerateInfo();
  
   return (
     <>
@@ -23,14 +23,14 @@ const Page = async ({ params }) => {
         <h3 className="text-2xl font-bold">
           {anime.data.title} - {anime.data.year}
         </h3>
-        {!collection && user && (
+        
           <CollectionButton
             anime_mal_id={id}
             user_email={user?.email}
             anime_image={anime.data.images.webp.image_url}
             anime_title={anime.data.title}
           />
-        )}
+       
       </div>
 
       <div className="pt-4 px-4 flex gap-2 overflow-x-auto">
