@@ -63,11 +63,11 @@ const Page = async ({ params: { anime_mal_id } }) => {
       </div>
       <div className="p-4">
         <h3 className="font-bold text-2xl mb-2">Komentar Penonton : </h3>
-        <UserComment anime_mal_id={id} />
+        <UserComment anime_mal_id={anime_mal_id} />
 
         {user && (
           <CommentInput
-            anime_mal_id={id}
+            anime_mal_id={anime_mal_id}
             user_email={user?.email}
             username={user?.name}
             anime_title={anime.data.title}
