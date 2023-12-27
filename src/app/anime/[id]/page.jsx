@@ -10,9 +10,11 @@ import UserComment from "@/components/ListAnime/UserComment";
 const Page = async ({ params: { id } }) => {
   const anime = await getAnimeResponse(`anime/${id}`);
   const user = await authUserSession();
-  const collection = await prisma.collection.findFirst({
-    where: { user_email: user?.email, anime_mal_id: id },
-  })
+  const collection = await prisma.collection
+    .findFirst({
+      where: { user_email: user?.email, anime_mal_id: id },
+    })
+    .withAccelerateInfo();
 
   return (
     <>
@@ -21,7 +23,12 @@ const Page = async ({ params: { id } }) => {
           {anime.data.title} - {anime.data.year}
         </h3>
         {!collection && user && (
-          <CollectionButton anime_mal_id={id} user_email={user?.email} anime_image={anime.data.images.webp.image_url} anime_title={anime.data.title} />
+          <CollectionButton
+            anime_mal_id={id}
+            user_email={user?.email}
+            anime_image={anime.data.images.webp.image_url}
+            anime_title={anime.data.title}
+          />
         )}
       </div>
 
@@ -55,14 +62,21 @@ const Page = async ({ params: { id } }) => {
         <p className="text-justify text-xl">{anime.data.synopsis}</p>
       </div>
       <div className="p-4">
-                <h3 className="font-bold text-2xl mb-2">Komentar Penonton : </h3>
-                <UserComment anime_mal_id={id}/>
+        <h3 className="font-bold text-2xl mb-2">Komentar Penonton : </h3>
+        <UserComment anime_mal_id={id} />
 
-                { user && <CommentInput anime_mal_id={id} user_email={user?.email} username={user?.name} anime_title={anime.data.title}/> }
-            </div>
-            <div>
-                <VideoPlayer youtubeId={anime.data.trailer.youtube_id}/>
-            </div>
+        {user && (
+          <CommentInput
+            anime_mal_id={id}
+            user_email={user?.email}
+            username={user?.name}
+            anime_title={anime.data.title}
+          />
+        )}
+      </div>
+      <div>
+        <VideoPlayer youtubeId={anime.data.trailer.youtube_id} />
+      </div>
     </>
   );
 };
