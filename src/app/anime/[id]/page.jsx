@@ -8,7 +8,7 @@ import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
 const Page = async ({ params: { id } }) => {
-  const anime = await getAnimeResponse(`anime/${id}`);
+  const anime = await getAnimeResponse(`anime/${ id }`);
   const user = await authUserSession();
   const collection = await prisma.collection
     .findFirst({
