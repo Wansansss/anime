@@ -5,7 +5,7 @@ import middleware from "next-auth/middleware";
 let prisma;
 
 if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient().$use(middleware).$extends(withAccelerate())
+  prisma = new PrismaClient().$extends(middleware()).$extends(withAccelerate())
 } else {
   if (!global.prisma) {
     global.prisma = new PrismaClient();
