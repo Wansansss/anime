@@ -8,7 +8,6 @@ const page = async () => {
   const user = await authUserSession();
   const comments = await prisma.comment
     .findMany({ where: { user_email: user.email } })
-    .withAccelerateInfo();
 
   return (
     <section className="mt-4 px-4 w-full">
