@@ -18,8 +18,8 @@ const Page = () => {
   };
 
   useEffect(() => {
-    [fetchData(),page]
-  })
+    fetchData()
+  }, [page])
 
   return (
     <>
