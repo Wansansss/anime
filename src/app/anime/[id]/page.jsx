@@ -12,7 +12,7 @@ const Page = async ({ params: { id } }) => {
   const user = await authUserSession();
   const collection = await prisma.collection.findFirst({
     where: { user_email: user?.email, anime_mal_id: id },
-  });
+  })
 
   return (
     <>
