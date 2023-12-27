@@ -7,15 +7,15 @@ import prisma from "@/libs/prisma";
 import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
-const Page = async ({ params: { id } }) => {
-  const anime = await getAnimeResponse(`anime/${ id }`);
-  const user = await authUserSession();
+const Page = async ({ params: { anime_mal_id } }) => {
   const collection = await prisma.collection
-    .findFirst({
-      where: { user_email: user?.email, anime_mal_id: id },
-    })
-    .withAccelerateInfo();
-
+  .findFirst({
+    where: { user_email: user?.email, anime_mal_id: anime_mal_id },
+  })
+  .withAccelerateInfo();
+  const anime = await getAnimeResponse(`anime/${ anime_mal_id }`);
+  const user = await authUserSession();
+ 
   return (
     <>
       <div className="pt-4 px-4">
