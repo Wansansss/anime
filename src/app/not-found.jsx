@@ -1,6 +1,7 @@
 "use client"
 
 import { FileSearch } from "@phosphor-icons/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
