@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import HeaderMenu from "@/components/Utilities/Headermenu";
 import Pagination from "@/components/Utilities/Pagination";
 import ListAnime from "@/components/ListAnime";
 import { getAnimeResponse } from "../../libs/api-libs";
+import HeaderMenu from "@/components/Utilities/HeaderMenu";
 
 const Page = () => {
   const [page, setPage] = useState(1);
@@ -18,6 +18,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
   return (
