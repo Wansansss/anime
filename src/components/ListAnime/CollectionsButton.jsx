@@ -15,7 +15,7 @@ const CollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }
       body: JSON.stringify(data),
     });
 
-    const collection = await response.json();
+    let collection = await response.json();
     if (collection.isCreated) {
       setIsCreated(true);
     }
