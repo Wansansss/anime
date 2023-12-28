@@ -1,5 +1,3 @@
-"use strict"
-
 import { getAnimeResponse } from "@/libs/api-libs";
 import VideoPlayer from "@/components/Utilities/VideoPlayer";
 import Image from "next/image";
@@ -9,15 +7,12 @@ import prisma from "@/libs/prisma";
 import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
-const Page = async ({ params }) => {
-  const { id } = params;
+const Page = async ({ params: { id } }) => {
   const anime = await getAnimeResponse(`anime/${id}`);
   const user = await authUserSession();
-  const collection = await prisma.collection
-    .findFirst({
-      where: { user_email: user?.email, anime_mal_id: id },
-    })
-    .withAccelerateInfo();
+  const collection = await prisma.collection.findFirst({
+    where: { user_email: user?.email, anime_mal_id: id },
+  });
 
   return (
     <>
@@ -26,12 +21,7 @@ const Page = async ({ params }) => {
           {anime.data.title} - {anime.data.year}
         </h3>
         {!collection && user && (
-          <CollectionButton
-            anime_mal_id={id}
-            user_email={user?.email}
-            anime_image={anime.data.images.webp.image_url}
-            anime_title={anime.data.title}
-          />
+          <CollectionButton anime_mal_id={id} user_email={user?.email} anime_image={anime.data.images.webp.image_url} anime_title={anime.data.title} />
         )}
       </div>
 
@@ -65,21 +55,14 @@ const Page = async ({ params }) => {
         <p className="text-justify text-xl">{anime.data.synopsis}</p>
       </div>
       <div className="p-4">
-        <h3 className="font-bold text-2xl mb-2">Komentar Penonton : </h3>
-        <UserComment anime_mal_id={id} />
+                <h3 className="font-bold text-2xl mb-2">Komentar Penonton : </h3>
+                <UserComment anime_mal_id={id}/>
 
-        {user && (
-          <CommentInput
-            anime_mal_id={id}
-            user_email={user?.email}
-            username={user?.name}
-            anime_title={anime.data.title}
-          />
-        )}
-      </div>
-      <div>
-        <VideoPlayer youtubeId={anime.data.trailer.youtube_id} />
-      </div>
+                { user && <CommentInput anime_mal_id={id} user_email={user?.email} username={user?.name} anime_title={anime.data.title}/> }
+            </div>
+            <div>
+                <VideoPlayer youtubeId={anime.data.trailer.youtube_id}/>
+            </div>
     </>
   );
 };
