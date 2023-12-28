@@ -13,7 +13,7 @@ const Page = async ({ params }) => {
   const { id } = params;
   const anime = await getAnimeResponse(`anime/${id}`);
   const user = await authUserSession();
-  const collection = await prisma.collection
+  const collection = await prisma.Collection
     .findFirst({
       where: { user_email: user?.email, anime_mal_id: id },
     })
