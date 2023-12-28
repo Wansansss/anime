@@ -3,7 +3,7 @@ import VideoPlayer from "@/components/Utilities/VideoPlayer";
 import Image from "next/image";
 import CollectionButton from "@/components/ListAnime/CollectionsButton";
 import { authUserSession } from "@/libs/auth-libs";
-// import prisma from "@/libs/prisma";
+import prisma from "@/libs/prisma";
 import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
@@ -11,11 +11,11 @@ const Page = async ({ params }) => {
   const { id } = params
   const anime = await getAnimeResponse(`anime/${ id }`);
   const user = await authUserSession();
-  // const collection = await prisma.collection
-  // .findFirst({
-  //   where: { user_email: user?.email, anime_mal_id: id },
-  // })
-  // .withAccelerateInfo();
+  const collection = await prisma.collection
+  .findFirst({
+    where: { user_email: user?.email, anime_mal_id: id },
+  })
+  .withAccelerateInfo();
  
   return (
     <>
