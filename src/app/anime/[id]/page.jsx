@@ -8,15 +8,15 @@ import CommentInput from "@/components/ListAnime/CommentInput";
 import UserComment from "@/components/ListAnime/UserComment";
 
 const Page = async ({ params }) => {
-  const { id } = params
-  const anime = await getAnimeResponse(`anime/${ id }`);
+  const { id } = params;
+  const anime = await getAnimeResponse(`anime/${id}`);
   const user = await authUserSession();
   const collection = await prisma.collection
-  .findFirst({
-    where: { user_email: user?.email, anime_mal_id: id },
-  })
-  .withAccelerateInfo();
- 
+    .findFirst({
+      where: { user_email: user?.email, anime_mal_id: id },
+    })
+    .withAccelerateInfo();
+
   return (
     <>
       <div className="pt-4 px-4">
@@ -24,12 +24,12 @@ const Page = async ({ params }) => {
           {anime.data.title} - {anime.data.year}
         </h3>
         {!collection && user && (
-             <CollectionButton
-             anime_mal_id={id}
-             user_email={user?.email}
-             anime_image={anime.data.images.webp.image_url}
-             anime_title={anime.data.title}
-           />
+          <CollectionButton
+            anime_mal_id={id}
+            user_email={user?.email}
+            anime_image={anime.data.images.webp.image_url}
+            anime_title={anime.data.title}
+          />
         )}
       </div>
 
