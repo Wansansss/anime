@@ -1,8 +1,9 @@
-"use client"
+/* eslint-disable @next/next/no-async-client-component */
+"use client";
 
 import React, { useState } from "react";
 
-const CollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }) => {
+const CollectionButton = async ({ anime_mal_id, user_email, anime_image, anime_title }) => {
   const [isCreated, setIsCreated] = useState(false);
 
   const handleCollection = async (event) => {
@@ -15,7 +16,7 @@ const CollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }
       body: JSON.stringify(data),
     });
 
-    let collection = await response.json();
+    const collection = await response.json();
     if (collection.isCreated) {
       setIsCreated(true);
     }
