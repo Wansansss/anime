@@ -23,13 +23,15 @@ const Page = async ({ params }) => {
         <h3 className="text-2xl font-bold">
           {anime.data.title} - {anime.data.year}
         </h3>
-        
-          <CollectionButton
-            anime_mal_id={id}
-            user_email={user?.email}
-            anime_image={anime.data.images.webp.image_url}
-            anime_title={anime.data.title}
-          />
+        {!collection && (
+             <CollectionButton
+             anime_mal_id={id}
+             user_email={user?.email}
+             anime_image={anime.data.images.webp.image_url}
+             anime_title={anime.data.title}
+           />
+        )}
+         
        
       </div>
 
