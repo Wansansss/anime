@@ -23,7 +23,7 @@ const Page = async ({ params }) => {
         <h3 className="text-2xl font-bold">
           {anime.data.title} - {anime.data.year}
         </h3>
-        {!collection && (
+        {!collection && user && (
              <CollectionButton
              anime_mal_id={id}
              user_email={user?.email}
@@ -31,8 +31,6 @@ const Page = async ({ params }) => {
              anime_title={anime.data.title}
            />
         )}
-         
-       
       </div>
 
       <div className="pt-4 px-4 flex gap-2 overflow-x-auto">
