@@ -3,7 +3,7 @@ import { withAccelerate } from '@prisma/extension-accelerate';
 
 let prisma;
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production" && "development") {
   prisma = new PrismaClient().$extends(withAccelerate())
 } else {
   if (!global.prisma) {
