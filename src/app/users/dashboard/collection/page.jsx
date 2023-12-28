@@ -5,10 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Page = async () => {
-  const user = await authUserSession ();
+  const user = await authUserSession;
   const collection = await prisma.collection.findMany({
     where: { user_email: user.email },
-  })
+  });
+
   return (
     <section className="mt-4 px-4 w-full">
       <Header title="My Collection" />
